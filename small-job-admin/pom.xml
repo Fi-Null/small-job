@@ -26,6 +26,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <!-- starter-web：spring-webmvc + autoconfigure + logback + yaml + tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,13 +68,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
-        </dependency>
-
-        <!-- xxl-job-core -->
-        <dependency>
-            <groupId>com.small.job</groupId>
-            <artifactId>small-job-core</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
