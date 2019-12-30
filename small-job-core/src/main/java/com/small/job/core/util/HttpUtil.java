@@ -15,17 +15,16 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 
 /**
- * @ClassName HttpUtil
- * @Description TODO
- * @Author xiangke
- * @Date 2019/12/29 20:47
- * @Version 1.0
- **/
+ * @author null
+ * @version 1.0
+ * @title
+ * @description
+ * @createDate 12/30/19 10:12 AM
+ */
 public class HttpUtil {
-
     private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
-    public static String XXL_RPC_ACCESS_TOKEN = "SMALL-RPC-ACCESS-TOKEN";
 
+    public static String SMALL_JOB_ACCESS_TOKEN = "SMALL-JOB-ACCESS-TOKEN";
 
     // trust-https start
     private static void trustAllHosts(HttpsURLConnection connection) {
@@ -42,7 +41,7 @@ public class HttpUtil {
     }
 
     private static final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+        public X509Certificate[] getAcceptedIssuers() {
             return new java.security.cert.X509Certificate[]{};
         }
 
@@ -52,8 +51,6 @@ public class HttpUtil {
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
     }};
-    // trust-https end
-
 
     /**
      * post
@@ -90,7 +87,7 @@ public class HttpUtil {
             connection.setRequestProperty("Accept-Charset", "application/json;charset=UTF-8");
 
             if (accessToken != null && accessToken.trim().length() > 0) {
-                connection.setRequestProperty(XXL_RPC_ACCESS_TOKEN, accessToken);
+                connection.setRequestProperty(SMALL_JOB_ACCESS_TOKEN, accessToken);
             }
 
             // do connection
@@ -104,11 +101,10 @@ public class HttpUtil {
             dataOutputStream.flush();
             dataOutputStream.close();
 
-
             // valid StatusCode
             int statusCode = connection.getResponseCode();
             if (statusCode != 200) {
-                return new ReturnT<>(ReturnT.FAIL_CODE, "xxl-rpc remoting fail, StatusCode(" + statusCode + ") invalid. for url : " + url);
+                return new ReturnT<String>(ReturnT.FAIL_CODE, "small-job remoting fail, StatusCode(" + statusCode + ") invalid. for url : " + url);
             }
 
             // result
@@ -124,7 +120,7 @@ public class HttpUtil {
             try {
                 Map<String, Object> resultMap = JsonUtil.parseMap(resultJson);
 
-                ReturnT<String> returnT = new ReturnT<>();
+                ReturnT<String> returnT = new ReturnT<String>();
                 if (resultMap == null) {
                     returnT.setCode(ReturnT.FAIL_CODE);
                     returnT.setMsg("AdminBizClient Remoting call fail.");
@@ -135,13 +131,13 @@ public class HttpUtil {
                 }
                 return returnT;
             } catch (Exception e) {
-                logger.error("xxl-rpc remoting (url=" + url + ") response content invalid(" + resultJson + ").", e);
-                return new ReturnT<>(ReturnT.FAIL_CODE, "xxl-rpc remoting (url=" + url + ") response content invalid(" + resultJson + ").");
+                logger.error("small-job remoting (url=" + url + ") response content invalid(" + resultJson + ").", e);
+                return new ReturnT<String>(ReturnT.FAIL_CODE, "small-job remoting (url=" + url + ") response content invalid(" + resultJson + ").");
             }
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ReturnT<>(ReturnT.FAIL_CODE, "xxl-rpc remoting error(" + e.getMessage() + "), for url : " + url);
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "small-job remoting error(" + e.getMessage() + "), for url : " + url);
         } finally {
             try {
                 if (bufferedReader != null) {

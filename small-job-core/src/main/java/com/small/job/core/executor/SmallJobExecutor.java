@@ -73,6 +73,7 @@ public class SmallJobExecutor {
 
     // ---------------------- start + stop ----------------------
     public void start() throws Exception {
+
         // init invoker, admin-client
         initAdminBizList(adminAddresses, accessToken);
 
@@ -96,7 +97,6 @@ public class SmallJobExecutor {
             }
             jobThreadRepository.clear();
         }
-
         jobHandlerRepository.clear();
 
         // destory TriggerCallbackThread
@@ -227,7 +227,7 @@ public class SmallJobExecutor {
     public static JobThread registJobThread(int jobId, IJobHandler handler, String removeOldReason) {
         JobThread newJobThread = new JobThread(jobId, handler);
         newJobThread.start();
-        logger.info(">>>>>>>>>>> small-job regist JobThread success, jobId:{}, handler:{}", new Object[]{jobId, handler});
+        logger.info(">>>>>>>>>>> small-job register JobThread success, jobId:{}, handler:{}", new Object[]{jobId, handler});
 
         JobThread oldJobThread = jobThreadRepository.put(jobId, newJobThread);    // putIfAbsent | oh my god, map's put method return the old value!!!
         if (oldJobThread != null) {

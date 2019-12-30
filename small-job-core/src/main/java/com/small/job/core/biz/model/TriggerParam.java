@@ -16,13 +16,7 @@ public class TriggerParam implements Serializable {
     private String executorParams;
     private String executorBlockStrategy;
     private int executorTimeout;
-
-    private long logId;
-    private long logDateTime;
-
     private String glueType;
-    private String glueSource;
-    private long glueUpdatetime;
 
     private int broadcastIndex;
     private int broadcastTotal;
@@ -60,30 +54,6 @@ public class TriggerParam implements Serializable {
         this.executorBlockStrategy = executorBlockStrategy;
     }
 
-    public int getExecutorTimeout() {
-        return executorTimeout;
-    }
-
-    public void setExecutorTimeout(int executorTimeout) {
-        this.executorTimeout = executorTimeout;
-    }
-
-    public long getLogId() {
-        return logId;
-    }
-
-    public void setLogId(long logId) {
-        this.logId = logId;
-    }
-
-    public long getLogDateTime() {
-        return logDateTime;
-    }
-
-    public void setLogDateTime(long logDateTime) {
-        this.logDateTime = logDateTime;
-    }
-
     public String getGlueType() {
         return glueType;
     }
@@ -92,20 +62,12 @@ public class TriggerParam implements Serializable {
         this.glueType = glueType;
     }
 
-    public String getGlueSource() {
-        return glueSource;
+    public int getExecutorTimeout() {
+        return executorTimeout;
     }
 
-    public void setGlueSource(String glueSource) {
-        this.glueSource = glueSource;
-    }
-
-    public long getGlueUpdatetime() {
-        return glueUpdatetime;
-    }
-
-    public void setGlueUpdatetime(long glueUpdatetime) {
-        this.glueUpdatetime = glueUpdatetime;
+    public void setExecutorTimeout(int executorTimeout) {
+        this.executorTimeout = executorTimeout;
     }
 
     public int getBroadcastIndex() {
@@ -133,11 +95,6 @@ public class TriggerParam implements Serializable {
                 ", executorParams='" + executorParams + '\'' +
                 ", executorBlockStrategy='" + executorBlockStrategy + '\'' +
                 ", executorTimeout=" + executorTimeout +
-                ", logId=" + logId +
-                ", logDateTime=" + logDateTime +
-                ", glueType='" + glueType + '\'' +
-                ", glueSource='" + glueSource + '\'' +
-                ", glueUpdatetime=" + glueUpdatetime +
                 ", broadcastIndex=" + broadcastIndex +
                 ", broadcastTotal=" + broadcastTotal +
                 '}';
