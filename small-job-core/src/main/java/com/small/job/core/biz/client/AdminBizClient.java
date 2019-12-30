@@ -4,6 +4,7 @@ import com.small.job.core.biz.AdminBiz;
 import com.small.job.core.biz.model.HandleCallbackParam;
 import com.small.job.core.biz.model.RegistryParam;
 import com.small.job.core.biz.model.ReturnT;
+import com.small.job.core.util.HttpUtil;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class AdminBizClient implements AdminBiz {
 
     public AdminBizClient() {
     }
+
     public AdminBizClient(String addressUrl, String accessToken) {
         this.addressUrl = addressUrl;
         this.accessToken = accessToken;
@@ -28,22 +30,22 @@ public class AdminBizClient implements AdminBiz {
         }
     }
 
-    private String addressUrl ;
+    private String addressUrl;
     private String accessToken;
 
 
     @Override
     public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList) {
-        return null;
+        return HttpUtil.postBody(addressUrl + "api/callback", accessToken, callbackParamList, 3);
     }
 
     @Override
     public ReturnT<String> registry(RegistryParam registryParam) {
-        return null;
+        return HttpUtil.postBody(addressUrl + "api/registry", accessToken, registryParam, 3);
     }
 
     @Override
     public ReturnT<String> registryRemove(RegistryParam registryParam) {
-        return null;
+        return HttpUtil.postBody(addressUrl + "api/registryRemove", accessToken, registryParam, 3);
     }
 }

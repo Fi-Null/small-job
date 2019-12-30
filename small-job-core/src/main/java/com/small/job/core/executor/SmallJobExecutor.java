@@ -73,15 +73,8 @@ public class SmallJobExecutor {
 
     // ---------------------- start + stop ----------------------
     public void start() throws Exception {
-
-        // init logpath
-        // XxlJobFileAppender.initLogPath(logPath);
-
         // init invoker, admin-client
         initAdminBizList(adminAddresses, accessToken);
-
-        // init JobLogFileCleanThread
-        //JobLogFileCleanThread.getInstance().start(logRetentionDays);
 
         // init TriggerCallbackThread
         TriggerCallbackThread.getInstance().start();
@@ -103,11 +96,8 @@ public class SmallJobExecutor {
             }
             jobThreadRepository.clear();
         }
+
         jobHandlerRepository.clear();
-
-
-        // destory JobLogFileCleanThread
-        //JobLogFileCleanThread.getInstance().toStop();
 
         // destory TriggerCallbackThread
         TriggerCallbackThread.getInstance().toStop();
