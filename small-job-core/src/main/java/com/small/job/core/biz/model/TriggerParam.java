@@ -16,13 +16,10 @@ public class TriggerParam implements Serializable {
     private String executorParams;
     private String executorBlockStrategy;
     private int executorTimeout;
+    private String glueType;
 
     private long logId;
     private long logDateTime;
-
-    private String glueType;
-    private String glueSource;
-    private long glueUpdatetime;
 
     private int broadcastIndex;
     private int broadcastTotal;
@@ -60,6 +57,14 @@ public class TriggerParam implements Serializable {
         this.executorBlockStrategy = executorBlockStrategy;
     }
 
+    public String getGlueType() {
+        return glueType;
+    }
+
+    public void setGlueType(String glueType) {
+        this.glueType = glueType;
+    }
+
     public int getExecutorTimeout() {
         return executorTimeout;
     }
@@ -82,30 +87,6 @@ public class TriggerParam implements Serializable {
 
     public void setLogDateTime(long logDateTime) {
         this.logDateTime = logDateTime;
-    }
-
-    public String getGlueType() {
-        return glueType;
-    }
-
-    public void setGlueType(String glueType) {
-        this.glueType = glueType;
-    }
-
-    public String getGlueSource() {
-        return glueSource;
-    }
-
-    public void setGlueSource(String glueSource) {
-        this.glueSource = glueSource;
-    }
-
-    public long getGlueUpdatetime() {
-        return glueUpdatetime;
-    }
-
-    public void setGlueUpdatetime(long glueUpdatetime) {
-        this.glueUpdatetime = glueUpdatetime;
     }
 
     public int getBroadcastIndex() {
@@ -135,9 +116,6 @@ public class TriggerParam implements Serializable {
                 ", executorTimeout=" + executorTimeout +
                 ", logId=" + logId +
                 ", logDateTime=" + logDateTime +
-                ", glueType='" + glueType + '\'' +
-                ", glueSource='" + glueSource + '\'' +
-                ", glueUpdatetime=" + glueUpdatetime +
                 ", broadcastIndex=" + broadcastIndex +
                 ", broadcastTotal=" + broadcastTotal +
                 '}';
