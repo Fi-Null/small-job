@@ -41,7 +41,7 @@ public class SmallJobScheduler {
         // start-schedule
         JobScheduleHelper.getInstance().start();
 
-        logger.info(">>>>>>>>> init xxl-job admin success.");
+        logger.info(">>>>>>>>> init small-job admin success.");
     }
 
     public void destroy() throws Exception {

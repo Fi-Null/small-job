@@ -46,7 +46,6 @@ public class JobTriggerPoolHelper {
 
 
     public void stop() {
-        //triggerPool.shutdown();
         fastTriggerPool.shutdownNow();
         slowTriggerPool.shutdownNow();
         logger.info(">>>>>>>>> small-job trigger thread pool shutdown success.");

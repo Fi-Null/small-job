@@ -172,7 +172,7 @@ public class SmallJobTrigger {
             ExecutorBiz executorBiz = SmallJobScheduler.getExecutorBiz(address);
             runResult = executorBiz.run(triggerParam);
         } catch (Exception e) {
-            logger.error(">>>>>>>>>>> xxl-job trigger error, please check if the executor[{}] is running.", address, e);
+            logger.error(">>>>>>>>>>> small-job trigger error, please check if the executor[{}] is running.", address, e);
             runResult = new ReturnT<String>(ReturnT.FAIL_CODE, ThrowableUtil.toString(e));
         }
 
