@@ -1,6 +1,7 @@
 package com.small.job.core.biz.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author null
@@ -17,6 +18,8 @@ public class TriggerParam implements Serializable {
     private String executorBlockStrategy;
     private int executorTimeout;
     private String glueType;
+    private long logId;
+    private long logDateTime;
 
     private int broadcastIndex;
     private int broadcastTotal;
@@ -86,6 +89,21 @@ public class TriggerParam implements Serializable {
         this.broadcastTotal = broadcastTotal;
     }
 
+    public long getLogId() {
+        return logId;
+    }
+
+    public void setLogId(long logId) {
+        this.logId = logId;
+    }
+
+    public long getLogDateTime() {
+        return logDateTime;
+    }
+
+    public void setLogDateTime(long logDateTime) {
+        this.logDateTime = logDateTime;
+    }
 
     @Override
     public String toString() {

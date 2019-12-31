@@ -2,7 +2,9 @@ package com.small.job.admin.service.impl;
 
 import com.small.job.admin.dao.SmallJobGroupDao;
 import com.small.job.admin.dao.SmallJobInfoDao;
+import com.small.job.admin.dao.SmallJobLogDao;
 import com.small.job.admin.dao.SmallJobRegistryDao;
+import com.small.job.admin.model.SmallJobLog;
 import com.small.job.core.biz.AdminBiz;
 import com.small.job.core.biz.model.HandleCallbackParam;
 import com.small.job.core.biz.model.RegistryParam;
@@ -34,6 +36,8 @@ public class AdminBizImpl implements AdminBiz {
     @Resource
     private SmallJobRegistryDao smallJobRegistryDao;
     @Resource
+    private SmallJobLogDao smallJobLogDao;
+    @Resource
     private SmallJobGroupDao smallJobGroupDao;
 
     @Override
@@ -49,31 +53,28 @@ public class AdminBizImpl implements AdminBiz {
 
     private ReturnT<String> callback(HandleCallbackParam handleCallbackParam) {
         // valid log item
-//        XxlJobLog log = xxlJobLogDao.load(handleCallbackParam.getLogId());
-//        if (log == null) {
-//            return new ReturnT<String>(ReturnT.FAIL_CODE, "log item not found.");
-//        }
-//        if (log.getHandleCode() > 0) {
-//            return new ReturnT<String>(ReturnT.FAIL_CODE, "log repeate callback.");     // avoid repeat callback, trigger child job etc
-//        }
-//
-//        // handle msg
-//        StringBuffer handleMsg = new StringBuffer();
-//        if (log.getHandleMsg()!=null) {
-//            handleMsg.append(log.getHandleMsg()).append("<br>");
-//        }
-//        if (handleCallbackParam.getExecuteResult().getMsg() != null) {
-//            handleMsg.append(handleCallbackParam.getExecuteResult().getMsg());
-//        }
-//        if (callbackMsg != null) {
-//            handleMsg.append(callbackMsg);
-//        }
-//
-//        // success, save log
-//        log.setHandleTime(new Date());
-//        log.setHandleCode(handleCallbackParam.getExecuteResult().getCode());
-//        log.setHandleMsg(handleMsg.toString());
-//        xxlJobLogDao.updateHandleInfo(log);
+        SmallJobLog log = smallJobLogDao.load(handleCallbackParam.getLogId());
+        if (log == null) {
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "log item not found.");
+        }
+        if (log.getHandleCode() > 0) {
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "log repeate callback.");     // avoid repeat callback, trigger child job etc
+        }
+
+        // handle msg
+        StringBuffer handleMsg = new StringBuffer();
+        if (log.getHandleMsg()!=null) {
+            handleMsg.append(log.getHandleMsg()).append("<br>");
+        }
+        if (handleCallbackParam.getExecuteResult().getMsg() != null) {
+            handleMsg.append(handleCallbackParam.getExecuteResult().getMsg());
+        }
+
+        // success, save log
+        log.setHandleTime(new Date());
+        log.setHandleCode(handleCallbackParam.getExecuteResult().getCode());
+        log.setHandleMsg(handleMsg.toString());
+        smallJobLogDao.updateHandleInfo(log);
 
         return ReturnT.SUCCESS;
     }

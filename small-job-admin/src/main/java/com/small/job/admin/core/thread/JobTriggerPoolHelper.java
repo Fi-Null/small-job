@@ -102,7 +102,6 @@ public class JobTriggerPoolHelper {
         });
     }
 
-
     private static JobTriggerPoolHelper helper = new JobTriggerPoolHelper();
 
     public static void toStart() {
