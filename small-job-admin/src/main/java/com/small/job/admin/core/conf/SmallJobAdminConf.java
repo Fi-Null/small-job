@@ -3,6 +3,7 @@ package com.small.job.admin.core.conf;
 import com.small.job.admin.core.scheduler.SmallJobScheduler;
 import com.small.job.admin.dao.SmallJobGroupDao;
 import com.small.job.admin.dao.SmallJobInfoDao;
+import com.small.job.admin.dao.SmallJobLogDao;
 import com.small.job.admin.dao.SmallJobRegistryDao;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,6 +25,7 @@ import javax.sql.DataSource;
 public class SmallJobAdminConf implements InitializingBean, DisposableBean {
 
     private static SmallJobAdminConf adminConfig = null;
+
     public static SmallJobAdminConf getAdminConfig() {
         return adminConfig;
     }
@@ -47,7 +49,7 @@ public class SmallJobAdminConf implements InitializingBean, DisposableBean {
 
     // ---------------------- smallJobScheduler ----------------------
     // conf
-    
+
     @Value("${small.job.accessToken}")
     private String accessToken;
 
@@ -61,8 +63,8 @@ public class SmallJobAdminConf implements InitializingBean, DisposableBean {
     private int triggerPoolSlowMax;
 
     // dao, service
-//    @Resource
-//    private SmallJobLogDao smallJobLogDao;
+    @Resource
+    private SmallJobLogDao smallJobLogDao;
     @Resource
     private SmallJobInfoDao smallJobInfoDao;
     @Resource
@@ -96,6 +98,14 @@ public class SmallJobAdminConf implements InitializingBean, DisposableBean {
             return 100;
         }
         return triggerPoolSlowMax;
+    }
+
+    public SmallJobLogDao getSmallJobLogDao() {
+        return smallJobLogDao;
+    }
+
+    public void setSmallJobLogDao(SmallJobLogDao smallJobLogDao) {
+        this.smallJobLogDao = smallJobLogDao;
     }
 
     public SmallJobInfoDao getSmallJobInfoDao() {

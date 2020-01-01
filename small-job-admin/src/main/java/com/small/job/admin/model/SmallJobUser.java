@@ -1,5 +1,7 @@
 package com.small.job.admin.model;
 
+import org.springframework.util.StringUtils;
+
 /**
  * @author null
  * @version 1.0
@@ -52,5 +54,22 @@ public class SmallJobUser {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    // plugin
+    public boolean validPermission(int jobGroup){
+        if (this.role == 1) {
+            return true;
+        } else {
+            if (StringUtils.hasText(this.permission)) {
+                for (String permissionItem : this.permission.split(",")) {
+                    if (String.valueOf(jobGroup).equals(permissionItem)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }

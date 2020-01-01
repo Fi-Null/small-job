@@ -6,6 +6,7 @@ import com.small.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.small.job.admin.core.scheduler.SmallJobScheduler;
 import com.small.job.admin.model.SmallJobGroup;
 import com.small.job.admin.model.SmallJobInfo;
+import com.small.job.admin.model.SmallJobLog;
 import com.small.job.core.biz.ExecutorBiz;
 import com.small.job.core.biz.model.ReturnT;
 import com.small.job.core.biz.model.TriggerParam;
@@ -14,6 +15,8 @@ import com.small.rpc.util.IpUtil;
 import com.small.rpc.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * @author null
@@ -77,7 +80,7 @@ public class SmallJobTrigger {
 
     private static boolean isNumeric(String str) {
         try {
-            int result = Integer.valueOf(str);
+            Integer.valueOf(str);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -98,6 +101,14 @@ public class SmallJobTrigger {
         ExecutorBlockStrategyEnum blockStrategy = ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), ExecutorBlockStrategyEnum.SERIAL_EXECUTION);  // block strategy
         ExecutorRouteStrategyEnum executorRouteStrategyEnum = ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null);    // route strategy
         String shardingParam = (ExecutorRouteStrategyEnum.SHARDING_BROADCAST == executorRouteStrategyEnum) ? String.valueOf(index).concat("/").concat(String.valueOf(total)) : null;
+
+        // 1、save log-id
+        SmallJobLog jobLog = new SmallJobLog();
+        jobLog.setJobGroup(jobInfo.getJobGroup());
+        jobLog.setJobId(jobInfo.getId());
+        jobLog.setTriggerTime(new Date());
+        SmallJobAdminConf.getAdminConfig().getSmallJobLogDao().save(jobLog);
+        logger.debug(">>>>>>>>>>> small-job trigger start, jobId:{}", jobLog.getId());
 
 
         // 2、init trigger-param
@@ -128,7 +139,7 @@ public class SmallJobTrigger {
                 }
             }
         } else {
-            routeAddressResult = new ReturnT<String>(ReturnT.FAIL_CODE, "jobconf_trigger_address_empty");
+            routeAddressResult = new ReturnT<>(ReturnT.FAIL_CODE, "jobconf_trigger_address_empty");
         }
 
         // 4、trigger remote executor
@@ -136,7 +147,7 @@ public class SmallJobTrigger {
         if (address != null) {
             triggerResult = runExecutor(triggerParam, address);
         } else {
-            triggerResult = new ReturnT<String>(ReturnT.FAIL_CODE, null);
+            triggerResult = new ReturnT<>(ReturnT.FAIL_CODE, null);
         }
 
         // 5、collection trigger info

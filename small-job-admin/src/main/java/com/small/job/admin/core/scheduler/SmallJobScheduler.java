@@ -2,6 +2,7 @@ package com.small.job.admin.core.scheduler;
 
 import com.small.job.admin.core.conf.SmallJobAdminConf;
 import com.small.job.admin.core.thread.JobScheduleHelper;
+import com.small.job.admin.core.thread.JobTriggerPoolHelper;
 import com.small.job.core.biz.ExecutorBiz;
 import com.small.rpc.remoting.invoker.call.CallType;
 import com.small.rpc.remoting.invoker.reference.RpcReferenceBean;
@@ -27,16 +28,10 @@ public class SmallJobScheduler {
     public void init() throws Exception {
 
         // admin registry monitor run
-        /*JobRegistryMonitorHelper.getInstance().start();
-
-        // admin monitor run
-        JobFailMonitorHelper.getInstance().start();
+        /*JobRegistryMonitorHelper.getInstance().start();*/
 
         // admin trigger pool start
         JobTriggerPoolHelper.toStart();
-
-        // admin log report start
-        JobLogReportHelper.getInstance().start();*/
 
         // start-schedule
         JobScheduleHelper.getInstance().start();
@@ -49,14 +44,8 @@ public class SmallJobScheduler {
         // stop-schedule
         JobScheduleHelper.getInstance().toStop();
 
-//        // admin log report stop
-//        JobLogReportHelper.getInstance().toStop();
-//
-//        // admin trigger pool stop
-//        JobTriggerPoolHelper.toStop();
-//
-//        // admin monitor stop
-//        JobFailMonitorHelper.getInstance().toStop();
+        // admin trigger pool stop
+        JobTriggerPoolHelper.toStop();
 //
 //        // admin registry stop
 //        JobRegistryMonitorHelper.getInstance().toStop();

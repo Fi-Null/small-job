@@ -85,7 +85,7 @@ public class AdminBizImpl implements AdminBiz {
         if (!StringUtils.hasText(registryParam.getRegistryGroup())
                 || !StringUtils.hasText(registryParam.getRegistryKey())
                 || !StringUtils.hasText(registryParam.getRegistryValue())) {
-            return new ReturnT<String>(ReturnT.FAIL_CODE, "Illegal Argument.");
+            return new ReturnT<>(ReturnT.FAIL_CODE, "Illegal Argument.");
         }
 
         int ret = smallJobRegistryDao.registryUpdate(registryParam.getRegistryGroup(), registryParam.getRegistryKey(), registryParam.getRegistryValue(), new Date());

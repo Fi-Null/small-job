@@ -5,6 +5,7 @@ import com.small.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.small.job.admin.core.thread.JobScheduleHelper;
 import com.small.job.admin.dao.SmallJobGroupDao;
 import com.small.job.admin.dao.SmallJobInfoDao;
+import com.small.job.admin.dao.SmallJobLogDao;
 import com.small.job.admin.model.SmallJobGroup;
 import com.small.job.admin.model.SmallJobInfo;
 import com.small.job.admin.service.SmallJobService;
@@ -38,8 +39,8 @@ public class SmallJobServiceImpl implements SmallJobService {
     private SmallJobGroupDao smallJobGroupDao;
     @Resource
     private SmallJobInfoDao smallJobInfoDao;
-//    @Resource
-//    public SmallJobLogDao SmallJobLogDao;
+    @Resource
+    public SmallJobLogDao smallJobLogDao;
 
     @Override
     public Map<String, Object> pageList(int start, int length, int jobGroup, int triggerStatus, String jobDesc, String executorHandler, String author) {
@@ -170,6 +171,7 @@ public class SmallJobServiceImpl implements SmallJobService {
             return ReturnT.SUCCESS;
         }
 
+        smallJobInfoDao.delete(id);
         smallJobInfoDao.delete(id);
         return ReturnT.SUCCESS;
     }
