@@ -1,5 +1,7 @@
 package com.small.job.admin.controller.interceptor;
 
+import com.small.job.admin.util.FtlUtil;
+import com.small.job.admin.util.I18nUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -24,12 +26,17 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
                            ModelAndView modelAndView) throws Exception {
 
         // cookie
-        if (modelAndView!=null && request.getCookies()!=null && request.getCookies().length>0) {
+        if (modelAndView != null && request.getCookies() != null && request.getCookies().length > 0) {
             HashMap<String, Cookie> cookieMap = new HashMap<String, Cookie>();
             for (Cookie ck : request.getCookies()) {
                 cookieMap.put(ck.getName(), ck);
             }
             modelAndView.addObject("cookieMap", cookieMap);
+        }
+
+        // static method
+        if (modelAndView != null) {
+            modelAndView.addObject("I18nUtil", FtlUtil.generateStaticModel(I18nUtil.class.getName()));
         }
 
         super.postHandle(request, response, handler, modelAndView);

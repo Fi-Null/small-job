@@ -49,6 +49,9 @@ public class SmallJobAdminConf implements InitializingBean, DisposableBean {
 
     // ---------------------- smallJobScheduler ----------------------
     // conf
+    // conf
+    @Value("${small.job.i18n}")
+    private String i18n;
 
     @Value("${small.job.accessToken}")
     private String accessToken;
@@ -138,5 +141,13 @@ public class SmallJobAdminConf implements InitializingBean, DisposableBean {
 
     public DataSource getDataSource() {
         return dataSource;
+    }
+
+    public String getI18n() {
+        return i18n;
+    }
+
+    public void setI18n(String i18n) {
+        this.i18n = i18n;
     }
 }
