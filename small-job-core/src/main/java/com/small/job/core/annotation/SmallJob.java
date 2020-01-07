@@ -2,6 +2,9 @@ package com.small.job.core.annotation;
 
 import java.lang.annotation.*;
 
+/***
+ * 注解在方法上
+ */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited

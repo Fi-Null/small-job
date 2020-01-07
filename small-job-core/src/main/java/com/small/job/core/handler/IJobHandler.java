@@ -33,18 +33,17 @@ public interface IJobHandler {
      * @return
      * @throws Exception
      */
-    public abstract ReturnT<String> execute(String param) throws Exception;
+    ReturnT<String> execute(String param) throws Exception;
 
 
     /**
      * init handler, invoked when JobThread init
      */
-    public void init() throws InvocationTargetException, IllegalAccessException;
+    void init() throws InvocationTargetException, IllegalAccessException;
 
 
     /**
      * destroy handler, invoked when JobThread destroy
      */
-    public void destroy() throws InvocationTargetException, IllegalAccessException;
-
+    void destroy() throws InvocationTargetException, IllegalAccessException;
 }
