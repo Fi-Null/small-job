@@ -1,6 +1,7 @@
 package com.small.job.admin.core.scheduler;
 
 import com.small.job.admin.core.conf.SmallJobAdminConf;
+import com.small.job.admin.core.thread.JobRegistryMonitorHelper;
 import com.small.job.admin.core.thread.JobScheduleHelper;
 import com.small.job.admin.core.thread.JobTriggerPoolHelper;
 import com.small.job.core.biz.ExecutorBiz;
@@ -28,7 +29,7 @@ public class SmallJobScheduler {
     public void init() throws Exception {
 
         // admin registry monitor run
-        /*JobRegistryMonitorHelper.getInstance().start();*/
+        JobRegistryMonitorHelper.getInstance().start();
 
         // admin trigger pool start
         JobTriggerPoolHelper.toStart();
@@ -46,10 +47,9 @@ public class SmallJobScheduler {
 
         // admin trigger pool stop
         JobTriggerPoolHelper.toStop();
-//
-//        // admin registry stop
-//        JobRegistryMonitorHelper.getInstance().toStop();
 
+        // admin registry stop
+        JobRegistryMonitorHelper.getInstance().toStop();
     }
 
     // ---------------------- executor-client ----------------------
